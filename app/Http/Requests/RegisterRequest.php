@@ -31,8 +31,8 @@ class RegisterRequest extends FormRequest
             'contact' => 'required|numeric',
             'gender' => 'in:Male,Female,Other',
             'address' => 'string',
-            'country' => 'required|exists:countries,id',
-            'state' => 'required|exists:states,id',
+            // 'country' => 'required|exists:countries,id',
+            // 'state' => 'required|exists:states,id',
             'profile' => 'mimes:jpg,jpeg,png'
 
         ];

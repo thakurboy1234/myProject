@@ -2,7 +2,9 @@
 
 use App\Http\Controllers\AuthenticationController;
 use App\Http\Controllers\blogComtroller;
+use App\Http\Controllers\indexController;
 use App\Http\Controllers\userController;
+use App\Models\blog;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -16,13 +18,11 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::get('/', function () {
-    return view('user_index');
-})->name('home');
+Route::get('/',[indexController::class,'index'])->name('home');
 
 Route::controller(AuthenticationController::class)->group(function(){
     Route::get('/register','register')->name('register');
-    Route::post('/register','storeUser')->name('store_user');
+    Route::post('/store','storeUser')->name('store_user');
     Route::get('/login','login')->name('login')->middleware('guest');
     Route::post('/login','authenticate')->name('authenticate');
     Route::get('/forgot_password','forgot_password')->name('forgot_password');
@@ -37,4 +37,5 @@ Route::controller(userController::class)->group(function(){
 Route::controller(blogComtroller::class)->group(function(){
     Route::get('/creat_blog','createBlogForm')->name('create_blog');
     Route::post('/create_blog','store')->name('store_blog');
+    Route::post('/like','like')->name('like');
 });

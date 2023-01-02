@@ -214,15 +214,26 @@
     </div>
     <center><h1>Blogs</h1></center>
     <div class="card-group px-4 px-lg-5 mt-5">
+        @foreach($blogs as $blog)
+        {{-- @dump($blog); --}}
         <div class="card">
           <img src="..." class="card-img-top" alt="...">
           <div class="card-body">
-            <h5 class="card-title">Card title</h5>
-            <p class="card-text">This is a wider card with supporting text below as a natural lead-in to additional content. This content is a little bit longer.</p>
-            <p class="card-text"><small class="text-muted">Last updated 3 mins ago</small></p>
-          </div>
+            <h5 class="card-title">{{$blog->title}}</h5>
+            <p class="card-text">{{$blog->discription}}</p>
+            <p class="card-text"><small class="text-muted">{{$blog->updated_at}}</small></p>
+            <form action="{{route('like')}}" method="POST">
+                @csrf
+                <input type = "hidden" name="blog_id" value="{{$blog->id}}">
+                <button type="submit" name="submit" style="color:rgb(35, 107, 241)">Like</button>
+
+            </form>
+            <p>Likes = {{$count}}</p>
+            <button style="color:cornflowerblue">comment</button>
         </div>
-        <div class="card">
+        </div>
+        @endforeach
+        {{-- <div class="card">
           <img src="..." class="card-img-top" alt="...">
           <div class="card-body">
             <h5 class="card-title">Card title</h5>
@@ -237,7 +248,7 @@
             <p class="card-text">This is a wider card with supporting text below as a natural lead-in to additional content. This card has even longer content than the first to show that equal height action.</p>
             <p class="card-text"><small class="text-muted">Last updated 3 mins ago</small></p>
           </div>
-        </div>
+        </div> --}}
       </div>
 </section>
 @endsection

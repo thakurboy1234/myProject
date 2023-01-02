@@ -15,13 +15,14 @@ class AuthenticationController extends Controller
 {
     public function register(Request $request)
     {
-        $countries = Country::all();
-        $states = Stats::all();
-        return view('register',compact('countries','states'));
+        // $countries = Country::all();
+        // $states = Stats::all();
+        return view('register');
     }
 
     public function storeUser(RegisterRequest $request)
     {
+        // dd(11);
         // $request->validate([
         //     'First_name' => 'required|max:250|string',
         //     'Last_name' => 'required|max:250|string',
@@ -42,6 +43,7 @@ class AuthenticationController extends Controller
         $requestData['password'] = Hash::make($request->password);
         $requestData['role_id'] = User::USER_ROLE;
         $store = User::create($requestData);
+        // dd($store);
         return redirect()->route('home');
     }
 

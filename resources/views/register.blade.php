@@ -13,10 +13,14 @@
                             </div>
                             <div class="col-xl-6">
                                 <div class="card-body p-md-5 text-black">
+                                    {{-- @if ($errors->any())
+                                        {{ implode('', $errors->all('<div>:message</div>')) }}
+                                    @endif --}}
 
                                     <form id="reg" method="POST" action="{{ route('store_user') }}"
                                         enctype="multipart/form-data">
                                         @csrf
+                                        {{-- @method('POST') --}}
                                         <h3 class="mb-5 text-uppercase">Student registration form</h3>
 
                                         <div class="row">
@@ -101,7 +105,7 @@
 
                                         </div>
 
-                                        <div class="row">
+                                        {{-- <div class="row">
                                             <div class="col-md-6 mb-4">
 
                                                 <label for="state" class="form-label">State</label>
@@ -136,7 +140,7 @@
                                                 </span>
 
                                             </div>
-                                        </div>
+                                        </div> --}}
                                         <div class="form-outline mb-4">
                                             <input type="password" id="pass" name="password"
                                                 class="form-control form-control-lg" />
@@ -161,7 +165,8 @@
                                             </div>
                                             <div class="d-flex justify-content-end pt-3">
                                                 <button type="button" class="btn btn-light btn-lg">Reset all</button>
-                                                <input class="btn btn-primary btn-lg" type="submit" value="Submit" />
+                                                <input class="btn btn-primary btn-lg" name="submit" type="submit"
+                                                    value="Submit" />
                                             </div>
                                         </div>
                                     </form>
