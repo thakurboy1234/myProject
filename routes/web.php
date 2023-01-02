@@ -38,4 +38,5 @@ Route::controller(blogComtroller::class)->group(function(){
     Route::get('/creat_blog','createBlogForm')->name('create_blog');
     Route::post('/create_blog','store')->name('store_blog');
     Route::post('/like','like')->name('like');
+    Route::get('/comment','comment')->name('comment');
 });

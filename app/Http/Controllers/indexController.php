@@ -11,17 +11,15 @@ class indexController extends Controller
     public function index()
     {
         // dd(11);
-        $count = Like::where('like','=','1')->count();
-        // dd($count);
         if(Auth::check()){
             $user_id = Auth::user()->id;
-            $blogs = Blog::where('user_id','!=',$user_id)->get();
+            $blogs = Blog::where('user_id','!=',$user_id)->with('like')->get();
         }else{
 
-            $blogs = Blog::all();
+            $blogs = Blog::with('like')->get();
         }
         // dd($blogs);
 
-        return view('user_index', compact('blogs','count'));
+        return view('user_index', compact('blogs'));
     }
 }

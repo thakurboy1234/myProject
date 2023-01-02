@@ -54,4 +54,8 @@ class blogComtroller extends Controller
         }
         return redirect()->back();
     }
+
+    public function comment(){
+        return view('userBlog.blogComment');
+    }
 }

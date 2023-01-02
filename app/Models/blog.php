@@ -15,4 +15,8 @@ class blog extends Model
         'discription',
         'title'
     ];
+
+    public function like(){
+        return $this->hasMany(Like::class)->where('like','!=',0);
+    }
 }

@@ -215,7 +215,7 @@
     <center><h1>Blogs</h1></center>
     <div class="card-group px-4 px-lg-5 mt-5">
         @foreach($blogs as $blog)
-        {{-- @dump($blog); --}}
+        {{-- @dd(count($blog->like)); --}}
         <div class="card">
           <img src="..." class="card-img-top" alt="...">
           <div class="card-body">
@@ -228,8 +228,8 @@
                 <button type="submit" name="submit" style="color:rgb(35, 107, 241)">Like</button>
 
             </form>
-            <p>Likes = {{$count}}</p>
-            <button style="color:cornflowerblue">comment</button>
+            <p>Likes = {{count($blog->like)}}</p>
+            <a href="{{route('comment')}}"  style="color:cornflowerblue">comment</a>
         </div>
         </div>
         @endforeach

@@ -1,0 +1,8 @@
+<h1>Comment</h1>
+    <form method="POST" action="">
+        @csrf
+        <div class="form-floating">
+            <textarea class="form-control" name="discription" placeholder="Leave a comment here" id="floatingTextarea2" style="height: 100px"></textarea>
+          </div>
+          <button type="submit" class="btn btn-primary">submit</button>
+    </form>
