@@ -246,7 +246,7 @@
                         {{-- <input type = "hidden" name="blog_id{{$blog->id}}" class="blog_id" value="{{$blog->id}}"> --}}
                         {{-- <button type="submit" name="submit" style="color:rgb(35, 107, 241)"><i style="font-size:24px" class="fa">&#xf087;</i></button> --}}
                         <a class="like" onclick="Like({{ $blog->id }})" ><i style="font-size:24px"
-                                class="fa">&#xf087;</i></a>&nbsp;<span id="cityAjax">{{ count($blog->like) }}</span>
+                                class="fa">&#xf087;</i></a>&nbsp;<span id="cityAjax_{{ $blog->id }}">{{ count($blog->like) }}</span>
                         {{-- </form> --}}
                         {{-- <p>Likes: {{count($blog->like)}}</p> --}}
                         <a href="{{ route('blog_comment', $blog->id) }}"><i style="font-size:24px; color:black"
@@ -258,8 +258,8 @@
                                     <h5 class="card-title">{{ $value->user->First_name }}</h5>
                                     {{-- <h6 class="card-subtitle mb-2 text-muted">{{$value->user_id}}</h6> --}}
                                     <p class="card-text">{{ $value->comment }}</p>
-                                    {{-- <a href="#" class="card-link">Card link</a>
-                  <a href="#" class="card-link">Another link</a> --}}
+                                    <a href="#" class="card-link">Card link</a>
+                  {{-- <a href="#" class="card-link">Another link</a> --}}
                                 </div>
                             </div>
                         @endforeach
@@ -300,8 +300,8 @@
                     "id": id,
                 },
                 success: function(data) {
-                    jQuery("#cityAjax").html(data.like);
-                    jQuery("#cityAjax").show();
+                    $('#cityAjax_'+id).html(data.like);
+
                 }
 
             });
