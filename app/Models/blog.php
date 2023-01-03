@@ -19,4 +19,8 @@ class blog extends Model
     public function like(){
         return $this->hasMany(Like::class)->where('like','!=',0);
     }
+
+    public function comment(){
+        return $this->hasMany(Comment::class)->with('user');
+    }
 }

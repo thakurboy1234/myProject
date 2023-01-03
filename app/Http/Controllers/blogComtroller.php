@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\blog;
+use App\Models\Comment;
 use App\Models\Like;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -32,7 +33,7 @@ class blogComtroller extends Controller
     {
         // dd($request->blog_id);
         $user_id = Auth::user()->id;
-        $blog_id = $request->blog_id;
+        $blog_id =$request->id;
         $likeData = Like::where('user_id', $user_id)->where('blog_id', $blog_id)->first();
         // dd($likeData);
         if (!$likeData) {
@@ -42,7 +43,7 @@ class blogComtroller extends Controller
             $store->user_id = $user_id;
             $store->blog_id = $blog_id;
             $store->save();
-            return redirect()->back();
+            // return redirect()->back();
         } else {
             $like = $likeData->like;
             if ($like == 1) {
@@ -52,10 +53,22 @@ class blogComtroller extends Controller
             }
             $likeData->save();
         }
-        return redirect()->back();
+        $count = Like::where('like',1)->where('blog_id',$blog_id)->count();
+        return response(['success'=>200,'like' =>$count]);
+        // return redirect()->back();
     }
 
-    public function comment(){
-        return view('userBlog.blogComment');
+    public function comment($id){
+        // dd($id);
+        return view('userBlog.blogComment',compact('id'));
+    }
+
+    public function storeComment(Request $request){
+        $store = new Comment;
+        $store->user_id = Auth::user()->id;
+        $store->blog_id = $request->blog_id;
+        $store->comment = $request->comment;
+        $store->save();
+        return redirect()->back();
     }
 }

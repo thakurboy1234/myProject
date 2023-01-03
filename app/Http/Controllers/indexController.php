@@ -13,10 +13,10 @@ class indexController extends Controller
         // dd(11);
         if(Auth::check()){
             $user_id = Auth::user()->id;
-            $blogs = Blog::where('user_id','!=',$user_id)->with('like')->get();
+            $blogs = Blog::where('user_id','!=',$user_id)->with('like')->with('comment')->get();
         }else{
 
-            $blogs = Blog::with('like')->get();
+            $blogs = Blog::with('like')->with('comment')->get();
         }
         // dd($blogs);
 
