@@ -4,6 +4,7 @@ use App\Http\Controllers\AuthenticationController;
 use App\Http\Controllers\blogComtroller;
 use App\Http\Controllers\indexController;
 use App\Http\Controllers\userController;
+use App\Http\Controllers\productController;
 use App\Models\blog;
 use Illuminate\Support\Facades\Route;
 
@@ -40,4 +41,9 @@ Route::controller(blogComtroller::class)->group(function(){
     Route::get('/like','like')->name('like')->middleware('auth');
     Route::get('/comment/{id}','comment')->name('blog_comment')->middleware('auth');
     Route::post('/comment','storeComment')->name('store_comment');
+});
+
+Route::controller(productController::class)->group(function(){
+    Route::get('/products','index')->name('products');
+    Route::get('/product_form','createProduct')->name('product.form');
 });

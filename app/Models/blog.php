@@ -21,6 +21,6 @@ class blog extends Model
     }
 
     public function comment(){
-        return $this->hasMany(Comment::class)->with('user');
+        return $this->hasMany(Comment::class)->with('user')->orderBy('id','DESC');
     }
 }

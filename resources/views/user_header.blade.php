@@ -27,6 +27,9 @@
       <li class="nav-item">
         <a class="nav-link" href="{{route('create_blog')}}">New Blog</a>
       </li>
+      <li class="nav-item">
+        <a class="nav-link" href="{{route('products')}}">Products</a>
+      </li>
       @endguest
     </ul>
     <form class="form-inline my-2 my-lg-0">

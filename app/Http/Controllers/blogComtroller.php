@@ -64,11 +64,21 @@ class blogComtroller extends Controller
     }
 
     public function storeComment(Request $request){
+        $user_name = Auth::user()->First_name;
         $store = new Comment;
         $store->user_id = Auth::user()->id;
         $store->blog_id = $request->blog_id;
         $store->comment = $request->comment;
         $store->save();
-        return redirect()->back();
+        // return redirect()->back();
+        $html = "<div class='card' style='width: 18rem;'>
+        <div class='card-body'>
+            <h5 class='card-title'>". $user_name." </h5>
+            <p class='card-text'>". $store->comment."</p>
+            <a href='#' class='card-link'>Card link</a>
+        </div>
+    </div>";
+    $count = Comment::where('blog_id',$request->blog_id)->count();
+        return response(['success'=>200,'card'=>$html,'count'=>$count]);
     }
 }
