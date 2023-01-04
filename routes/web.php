@@ -36,6 +36,7 @@ Route::controller(userController::class)->group(function(){
 });
 
 Route::controller(blogComtroller::class)->group(function(){
+    Route::get('/post','index')->name('post');
     Route::get('/creat_blog','createBlogForm')->name('create_blog');
     Route::post('/create_blog','store')->name('store_blog');
     Route::get('/like','like')->name('like')->middleware('auth');

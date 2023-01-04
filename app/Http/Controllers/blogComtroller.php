@@ -10,6 +10,12 @@ use Illuminate\Support\Facades\Auth;
 
 class blogComtroller extends Controller
 {
+    public function index()
+    {
+        // dd(11);
+        return view('userBlog.userPostsList');
+    }
+
     public function createBlogForm()
     {
         // dd(11);

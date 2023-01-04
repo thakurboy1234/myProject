@@ -6,10 +6,8 @@
   </button>
   <div class="collapse navbar-collapse" id="navbarNav">
     <ul class="navbar-nav">
-      <li class="nav-item active">
-        <a class="nav-link" href="userProfile.html">
-           My Account : {{auth()->user()->First_name ?? '--'}} </a>
-      </li>
+
+
       @guest
       <li class="nav-item">
         <a class="nav-link" href="{{route('login')}}">Login</a>
@@ -18,14 +16,18 @@
         <a class="nav-link" href="{{route('register')}}">Register</a>
       </li>
       @else
-      <li class="nav-item">
-        <a class="nav-link" href="{{route('user_profile')}}">My Profile</a>
+      <li class="nav-item active">
+        <a class="nav-link" href="{{route('user_profile')}}">
+            {{auth()->user()->First_name ?? '--'}} </a>
       </li>
       <li class="nav-item">
         <a class="nav-link" href="{{route('logout')}}">Logout</a>
       </li>
       <li class="nav-item">
-        <a class="nav-link" href="{{route('create_blog')}}">New Blog</a>
+        <a class="nav-link" href="{{route('create_blog')}}">NewPost</a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" href="{{route('post')}}">MyPosts</a>
       </li>
       <li class="nav-item">
         <a class="nav-link" href="{{route('products')}}">Products</a>
