@@ -16,26 +16,17 @@
             </tr>
         </thead>
         <tbody>
+            @foreach($blogs as $key=>$blog)
             <tr>
-                <th scope="row">1</th>
-                <td>Mark</td>
-                <td>Otto</td>
-                <td>@mdo</td>
-                <td>@mdo</td>
+                <th scope="row">{{$key}}</th>
+                <td>{{$blog->title}}</td>
+                <td>{{count($blog->comment)}}</td>
+                <td>{{count($blog->like)}}</td>
+                <td>
+                    <a href="{{route('view_post',$blog->id)}}">View</a>
+                </td>
             </tr>
-            <tr>
-                <th scope="row">2</th>
-                <td>Jacob</td>
-                <td>Thornton</td>
-                <td>@fat</td>
-                <td>@fat</td>
-            </tr>
-            <tr>
-                <th scope="row">3</th>
-                <td colspan="2">Larry the Bird</td>
-                <td>@twitter</td>
-                <td>@twitter</td>
-            </tr>
+            @endforeach
         </tbody>
     </table>
 </div>

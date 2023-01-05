@@ -7,13 +7,22 @@ use App\Models\Comment;
 use App\Models\Like;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use App\Events\PostDeleting;
 
 class blogComtroller extends Controller
 {
     public function index()
     {
-        // dd(11);
-        return view('userBlog.userPostsList');
+        $user_id = Auth::user()->id;
+        $blogs = blog::where('user_id', $user_id)->with('like')->with('comment')->orderBy('id','DESC')->get();
+        // dd($blogs);
+        return view('userBlog.userPostsList',compact('blogs'));
+    }
+
+    public function show($id){
+        $blogs = blog::where('id', $id)->with('like')->with('comment')->orderBy('id','DESC')->first();
+        // dd($blogs->comment);
+        return view('userBlog.viewBlog',compact('blogs'));
     }
 
     public function createBlogForm()
@@ -33,6 +42,16 @@ class blogComtroller extends Controller
         $store->discription = $request->discription;
         $store->save();
         return redirect()->back();
+    }
+
+    public function distroy($blog_id){
+        // dd($blog_id);
+        $post = blog::where('id',$blog_id)->with('like')->with('comment')->first();
+        // dd($post);
+        $post->delete();
+        return redirect(route('post'));
+        // event(new PostDeleting($post));
+
     }
 
     public function like(Request $request)
