@@ -245,6 +245,7 @@
                 {{-- @dd($blog) --}}
                 <div class="card">
                     <img src="..." class="card-img-top" alt="...">
+                    <h2>{{$blog->user->First_name}}</h2>
                     <div class="card-body">
                         <h5 class="card-title">{{ $blog->title }}</h5>
                         <p class="card-text">{{ $blog->discription }}</p>
