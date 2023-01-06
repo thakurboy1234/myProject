@@ -49,4 +49,7 @@ Route::controller(blogComtroller::class)->group(function(){
 Route::controller(productController::class)->group(function(){
     Route::get('/products','index')->name('products');
     Route::get('/product_form','createProduct')->name('product.form');
+    Route::post('/store_product','storeProduct')->name('product.store');
+    Route::get('/edit_product/{id}','edit')->name('product.edit');
+    Route::put('/update_product','update')->name('product.update');
 });
