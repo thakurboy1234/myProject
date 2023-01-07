@@ -1,5 +1,6 @@
 @extends('user_layout')
 @section('content')
+<div class="container" style="background-color: green; text-align: -webkit-center;">
     <h1>Blog</h1>
     <form method="POST" action="{{route('store_blog')}}">
         @csrf
@@ -13,6 +14,7 @@
           </div>
           <button type="submit" class="btn btn-primary">submit</button>
     </form>
+</div>
 @endsection
 
 

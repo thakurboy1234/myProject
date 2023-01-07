@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 use App\Models\blog;
 use App\Models\Like;
+use App\Models\Product;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 
@@ -10,6 +11,7 @@ class indexController extends Controller
 {
     public function index()
     {
+        $products = Product::paginate(4);
         // dd(11);
         if(Auth::check()){
             $user_id = Auth::user()->id;
@@ -20,6 +22,6 @@ class indexController extends Controller
         }
         // dd($blogs);
 
-        return view('user_index', compact('blogs'));
+        return view('user_index', compact('blogs','products'));
     }
 }

@@ -46,13 +46,15 @@ class blogComtroller extends Controller
 
     public function distroy($blog_id){
         // dd($blog_id);
-        $like = Like::where('blog_id',$blog_id)->get();
-        $like->delete();
-        $comment = Comment::where('blog_id',$blog_id)->get();
-        $comment->delete();
-        $post = blog::where('id',$blog_id)->first();
-        $post->delete();
-        return redirect(route('post'));
+         blog::where('id',$blog_id)->delete();
+        // dd($post);
+
+         Like::where('blog_id',$blog_id)->delete();
+
+         Comment::where('blog_id',$blog_id)->delete();
+
+        return redirect(route('post'))->with('message', 'POst deleted successfully');
+        // event(new PostDeleting($post));
 
     }
 
