@@ -13,7 +13,7 @@ class ProductRequest extends FormRequest
      */
     public function authorize()
     {
-        return false;
+        return true;
     }
 
     /**
@@ -25,9 +25,19 @@ class ProductRequest extends FormRequest
     {
         return [
             'productName' => 'required|max:250|string',
-            'productPrice' => 'required|',
-            'productImage' => 'mimes:jpg,jpeg,png'
+            'productPrice' => 'required|regex:/^\d+(\.\d{1,2})?$/',
+            'productImage' => 'required|mimes:jpg,jpeg,png'
 
+        ];
+    }
+
+    public function messages()
+    {
+        return [
+            'productName.required' => 'product Name is required!',
+            'productPrice.required' => 'product Price is required!',
+            'productPrice.regex' => 'Plese enter valid amount!',
+            'productImage.required' => 'product Image is required!'
         ];
     }
 }

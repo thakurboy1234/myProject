@@ -1,9 +1,11 @@
 <?php
 
-namespace App\Http\Controllers;
+namespace App\Http\Controllers\admin;
+use App\Http\Controllers\Controller;
 
 use Illuminate\Http\Request;
 use App\Models\Product;
+use App\Http\Requests\ProductRequest;
 
 class productController extends Controller
 {
@@ -19,7 +21,7 @@ class productController extends Controller
         return view('product.createProduct');
     }
 
-    public function storeProduct(Request $request)
+    public function storeProduct(ProductRequest $request)
     {
         // dd($request);
         // echo "<pre>";
@@ -45,7 +47,7 @@ class productController extends Controller
         return view('product.editProduct', compact('product'));
     }
 
-    public function update(Request $request)
+    public function update(ProductRequest $request)
     {
         // dd($request);
         $product = Product::find($request->id);
@@ -63,15 +65,18 @@ class productController extends Controller
         $product->price = $request->productPrice;
         $product->update();
         return redirect(route('products'))->with('messege', 'Product stored successfully');
-        // if(is_null($request->input('profileImage'))){
-        //     $product->image = $product->image;
-        // }else{
-        //     if (file_exists(public_path('productImage/'.$product->image ))){
-        //         dd(11);
-        //     // unlink(public_path());
-        // }
-        // }
-        // $product->name = $request->input('productName');
-        // $product->price = $request->input('productPrice');
+
+    }
+
+    public function delete(Request $request){
+        // dd($id);
+        $product = Product::find($request->id);
+        $product->delete();
+        $messege = 'Record deleted successfully';
+        return response(['success' => true,'messege'=> $messege]);
+    }
+    public function table(){
+
+        return view('Admin.table');
     }
 }

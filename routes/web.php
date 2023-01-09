@@ -1,12 +1,14 @@
 <?php
 
+use App\Http\Controllers\admin\IndexController as AdminIndexController;
 use App\Http\Controllers\AuthenticationController;
 use App\Http\Controllers\blogComtroller;
 use App\Http\Controllers\indexController;
 use App\Http\Controllers\userController;
-use App\Http\Controllers\productController;
+use App\Http\Controllers\admin\productController;
 use App\Models\blog;
 use Illuminate\Support\Facades\Route;
+use Illuminate\Support\Facades\Artisan;
 
 /*
 |--------------------------------------------------------------------------
@@ -20,6 +22,17 @@ use Illuminate\Support\Facades\Route;
 */
 
 Route::get('/',[indexController::class,'index'])->name('home');
+
+Route::get('config', function () {
+    Artisan::call('cache:clear');
+    Artisan::call('storage:link');
+    Artisan::call('view:clear');
+    Artisan::call('route:clear');
+    Artisan::call('config:clear');
+    Artisan::call('optimize:clear');
+    return redirect()->back();
+});
+
 
 Route::controller(AuthenticationController::class)->group(function(){
     Route::get('/register','register')->name('register');
@@ -46,10 +59,26 @@ Route::controller(blogComtroller::class)->group(function(){
     Route::get('/delete_post/{id}','distroy')->name('delete.post');
 });
 
-Route::controller(productController::class)->group(function(){
-    Route::get('/products','index')->name('products');
-    Route::get('/product_form','createProduct')->name('product.form');
-    Route::post('/store_product','storeProduct')->name('product.store');
-    Route::get('/edit_product/{id}','edit')->name('product.edit');
-    Route::put('/update_product','update')->name('product.update');
+
+
+// Route::group(['namespace' => 'Admin', 'as' => 'admin::', 'prefix' => 'admin'], function() {
+//     // For Other middlewares
+//     Route::get('/',[AdminIndexController::class,'index'])->name('home');
+// });
+Route::prefix('admin')->name('admin.')->group(function () {
+    // Route::get('/', function () {
+    //   dd(12);
+    // });
+    Route::get('/',[AdminIndexController::class,'index'])->name('index');
+
+    Route::controller(productController::class)->group(function(){
+        Route::get('/products','index')->name('products');
+        Route::get('/product_form','createProduct')->name('product.form');
+        Route::post('/store_product','storeProduct')->name('product.store');
+        Route::get('/edit_product/{id}','edit')->name('product.edit');
+        Route::put('/update_product','update')->name('product.update');
+        Route::get('/delete_product','delete')->name('product.delete');
+        Route::get('/datatable','table')->name('table');
+    });
+
 });
