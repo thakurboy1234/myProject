@@ -53,7 +53,7 @@ class blogComtroller extends Controller
 
          Comment::where('blog_id',$blog_id)->delete();
 
-        return redirect(route('post'))->with('message', 'POst deleted successfully');;
+        return redirect(route('post'))->with('message', 'POst deleted successfully');
         // event(new PostDeleting($post));
 
     }
