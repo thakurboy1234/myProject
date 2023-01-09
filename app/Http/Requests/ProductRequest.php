@@ -34,17 +34,10 @@ class ProductRequest extends FormRequest
     public function messages()
     {
         return [
-<<<<<<< HEAD
-            'productName.required' => 'product Name is required!',
-            'productPrice.required' => 'product Price is required!',
-            'productPrice.regex' => 'Plese enter valid amount!',
-            'productImage.required' => 'product Image is required!'
-=======
             'productName.required' => 'productName is required!',
             'productPrice.required' => 'productPrice is required!',
             'productImage.required' => 'productImage is required!',
             'productPrice.regex' => 'Plese enter a valid amount!'
->>>>>>> 388901ad394a90c1c4cb11d9383bff182eb7a157
         ];
     }
 }

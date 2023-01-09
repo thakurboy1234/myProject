@@ -1,7 +1,7 @@
 @extends('Admin.layout.master')
 @section('content')
     <div class="container" style="background-color: rgb(139, 146, 139)">
-        <form method="POST" id="creatProduct" action="{{route('product.store')}}" enctype="multipart/form-data">
+        <form method="POST" id="creatProduct" action="{{route('admin.product.store')}}" enctype="multipart/form-data">
             @csrf
             <div class="form-group" >
                 <label for="exampleInputEmail1">Product Name</label>
@@ -40,6 +40,7 @@
 @section('script')
     <script>
         $(document).ready(function(){
+
             $("#createProduct").validate({
                 rules: {
                     productName: {

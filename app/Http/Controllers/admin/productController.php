@@ -13,12 +13,12 @@ class productController extends Controller
     {
         $productData = Product::get();
         // dd($productData);
-        return view('products', compact('productData'));
+        return view('Admin.product.products', compact('productData'));
     }
 
     public function createProduct()
     {
-        return view('product.createProduct');
+        return view('Admin.product.createProduct');
     }
 
     public function storeProduct(ProductRequest $request)
@@ -36,7 +36,7 @@ class productController extends Controller
         $requestData->name = $request->productName;
         $requestData->price = $request->productPrice;
         $requestData->save();
-        return redirect(route('products'))->with('messege', 'Product stored successfully');
+        return redirect(route('Admin.product.products'))->with('messege', 'Product stored successfully');
     }
 
     public function edit($id)
@@ -44,7 +44,7 @@ class productController extends Controller
         // dd($id);
         $product = Product::where('id', $id)->first();
         // dd($product);
-        return view('product.editProduct', compact('product'));
+        return view('Admin.product.editProduct', compact('product'));
     }
 
     public function update(ProductRequest $request)
@@ -64,7 +64,7 @@ class productController extends Controller
         $product->name = $request->productName;
         $product->price = $request->productPrice;
         $product->update();
-        return redirect(route('products'))->with('messege', 'Product stored successfully');
+        return redirect(route('Admin.product.products'))->with('messege', 'Product stored successfully');
 
     }
 
