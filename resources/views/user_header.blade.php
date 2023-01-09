@@ -1,10 +1,6 @@
 <!-- Navigation-->
 <nav class="navbar navbar-expand-lg navbar-light bg-light">
-<<<<<<< HEAD
   <a class="navbar-brand" href="{{route('home')}}">Dashboard</a>
-=======
-  <a class="navbar-brand" href="{{route('home')}}"><i class="fa fa-arrow-circle-left" style="font-size:30px;color:rgb(63, 121, 245)"></i></a>
->>>>>>> 388901ad394a90c1c4cb11d9383bff182eb7a157
   <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
     <span class="navbar-toggler-icon"></span>
   </button>
