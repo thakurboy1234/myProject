@@ -62,7 +62,7 @@ class AuthenticationController extends Controller
         if(Auth::attempt($credencials)){
             return redirect()->intended('/');
         }else{
-            return redirect()->intended('login');
+            return redirect()->intended('login')->with('error','Whoops! invalid email and password.');;
         }
 
     }
@@ -74,8 +74,9 @@ class AuthenticationController extends Controller
 
     public function logout(Request $request)
     {
-        Session::flush();
         Auth::logout();
-        return redirect('/');
+        Session::flush();
+        Session::put('success', 'You are logout sucessfully');
+        return redirect('login');
     }
 }

@@ -36,7 +36,7 @@ class productController extends Controller
         $requestData->name = $request->productName;
         $requestData->price = $request->productPrice;
         $requestData->save();
-        return redirect(route('Admin.product.products'))->with('messege', 'Product stored successfully');
+        return redirect(route('admin.products'))->with('messege', 'Product stored successfully');
     }
 
     public function edit($id)

@@ -6,9 +6,11 @@ use App\Http\Controllers\blogComtroller;
 use App\Http\Controllers\indexController;
 use App\Http\Controllers\userController;
 use App\Http\Controllers\admin\productController;
+USE App\Http\Controllers\admin\AdminAuthController;
 use App\Models\blog;
 use Illuminate\Support\Facades\Route;
 use Illuminate\Support\Facades\Artisan;
+use App\Http\Controllers\CartController;
 
 /*
 |--------------------------------------------------------------------------
@@ -59,6 +61,8 @@ Route::controller(blogComtroller::class)->group(function(){
     Route::get('/delete_post/{id}','distroy')->name('delete.post');
 });
 
+Route::POST('/add_cart',[CartController::class , 'addCart'])->name('addCart');
+
 
 
 // Route::group(['namespace' => 'Admin', 'as' => 'admin::', 'prefix' => 'admin'], function() {
@@ -66,19 +70,27 @@ Route::controller(blogComtroller::class)->group(function(){
 //     Route::get('/',[AdminIndexController::class,'index'])->name('home');
 // });
 Route::prefix('admin')->name('admin.')->group(function () {
-    // Route::get('/', function () {
-    //   dd(12);
-    // });
-    Route::get('/',[AdminIndexController::class,'index'])->name('index');
 
-    Route::controller(productController::class)->group(function(){
-        Route::get('/products','index')->name('products');
-        Route::get('/product_form','createProduct')->name('product.form');
-        Route::post('/store_product','storeProduct')->name('product.store');
-        Route::get('/edit_product/{id}','edit')->name('product.edit');
-        Route::put('/update_product','update')->name('product.update');
-        Route::get('/delete_product','delete')->name('product.delete');
-        Route::get('/datatable','table')->name('table');
+    Route::get('/login', [AdminAuthController::class, 'getLogin'])->name('adminLogin');
+    Route::post('/login', [AdminAuthController::class, 'postLogin'])->name('adminLoginPost');
+
+    Route::group(['middleware' => 'adminauth'], function () {
+
+        Route::get('/',[AdminIndexController::class,'index'])->name('index');
+        Route::get('/logout',[AdminAuthController::class, 'adminLogout'])->name('adminlogout');
+
+
+        Route::controller(productController::class)->group(function(){
+            Route::get('/products','index')->name('products');
+            Route::get('/product_form','createProduct')->name('product.form');
+            Route::post('/store_product','storeProduct')->name('product.store');
+            Route::get('/edit_product/{id}','edit')->name('product.edit');
+            Route::put('/update_product','update')->name('product.update');
+            Route::get('/delete_product','delete')->name('product.delete');
+            Route::get('/datatable','table')->name('table');
+        });
+
     });
+
 
 });
