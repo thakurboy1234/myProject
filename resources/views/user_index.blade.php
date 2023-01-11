@@ -48,6 +48,8 @@
 
                             <!-- Product actions-->
                             <div class="card-footer p-4 pt-0 border-top-0 bg-transparent">
+                                @auth
+
                                 @if(empty($cartCount) || !in_array($product->id,$cartCount))
                                 <div class="text-center" >
                                     <a class="btn btn-outline-dark mt-auto" id="add_button{{$product->id}}" onclick="addCart({{ $product->id }})">Add to Cart </a>
@@ -57,6 +59,7 @@
                                     <a class="btn btn-outline-dark mt-auto" id="remove_button{{$product->id}}" onclick="removeCart({{ $product->id }})">Remove to cart </a>
                                 </div>
                                 @endif
+                                @endauth
                             </div>
 
                         </div>

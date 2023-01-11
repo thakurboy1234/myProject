@@ -16,15 +16,7 @@
                     <th>Action</th>
                 </tr>
             </thead>
-            <tfoot>
-                <tr>
-                    <th>Id</th>
-                    <th>Name</th>
-                    <th>Price</th>
-                    <th>Image</th>
-                    <th>Action</th>
-                </tr>
-            </tfoot>
+
             <tbody>
 
             </tbody>
@@ -35,19 +27,23 @@
 @section('script')
     <script>
         $(document).ready(function(){
-            $('#datatablesSimple').DataTable({
+            $('#datatablesSimple').dataTable({
                 processing: true,
                 serverSide: true,
-                order: [[ 0, "desc" ]],
+
                 ajax:{
                     url:"{{ route('admin.users-data') }}",
-                    dataSrc: 'allk'
+
                 },
                 columns: [
                     { data: 'id' },
                     { data: 'name' },
                     { data: 'price' },
-                    { data: 'image' },
+                    { data: 'image',render: function( data, type, full, meta ) {
+                        return "<img src=\"" + data + "\" height=\"50\"  align=\"center\"/>";
+                        }
+                    },
+                    {data: 'action', orderable: false, searchable: false},
                 ]
             });
         });

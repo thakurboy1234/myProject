@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\admin;
 use App\Http\Controllers\Controller;
+use Yajra\DataTables\DataTables;
 
 use Illuminate\Http\Request;
 use App\Models\Product;
@@ -82,35 +83,20 @@ class productController extends Controller
 
     public function getData(Request $request){
 
-        $draw                 =         $request->get('draw'); // Internal use
-        $start                 =         $request->get("start"); // where to start next records for pagination
-        $rowPerPage         =         $request->get("length"); // How many recods needed per page for pagination
+        if ($request->ajax()) {
+            $data = Product::orderBy('id','desc');
+            return Datatables::of($data)->addIndexColumn()
+                ->addColumn('image', function ($data) {
+                    return ' '.asset('productImage/'.$data->image).' ';
+                })
+                ->addColumn('action', function($row){
+                    $btn = '<a href="javascript:void(0)" class="btn btn-primary btn-sm">View</a>';
+                    return $btn;
+                })
+                ->rawColumns(['action'])
+                ->make(true);
+        }
 
-        $orderArray        =         $request->get('order');
-        $columnNameArray     =         $request->get('columns'); // It will give us columns array
-
-        $searchArray         =         $request->get('search');
-        $columnIndex         =         $orderArray[0]['column'];  // This will let us know,
-        // which column index should be sorted
-        // 0 = id, 1 = name, 2 = email , 3 = created_at
-
-        $columnName         =         $columnNameArray[$columnIndex]['data']; // Here we will get column name,
-        // Base on the index we get
-
-        $columnSortOrder     =         $orderArray[0]['dir']; // This will get us order direction(ASC/DESC)
-        $searchValue         =         $searchArray['value']; // This is search value
-
-        $products = Product::get();
-        $total = $products->count();
-        $totalFilter = $total;
-        $arrData = $products;
-
-        $response = array(
-            "draw" => intval($draw),
-            "recordsTotal" => $total,
-            "recordsFiltered" => $totalFilter,
-            "data" => $arrData,
-        );
-        return response()->json($response);
+        return view('users');
     }
 }
