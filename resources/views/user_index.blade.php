@@ -1,6 +1,7 @@
 @extends('user_layout')
 @section('content')
-    <!-- Header-->
+{{-- {{dd($cartCount);}} --}}
+<!-- Header-->
     <header class="bg-dark py-5">
         <div class="container px-4 px-lg-5 my-5">
             <div class="text-center text-white">
@@ -24,11 +25,15 @@
         <div class="container px-4 px-lg-5 mt-5">
             <div class="row gx-4 gx-lg-5 row-cols-2 row-cols-md-3 row-cols-xl-4 justify-content-center">
                 {{-- @dd($products) --}}
-                {{-- @dd($cartCount) --}}
+                {{-- @dd($cartCount)
+                @if(in_array('3',$cartCount)){
+                    @dd(11);
+                }
+                @endif --}}
                 @foreach($products as $product)
                 {{-- @dd($product) --}}
                 <div class="col mb-5">
-                    <div class="card h-100">
+                    <div class="card h-100" >
                         <!-- Product image-->
                         <img class="card-img-top" src="{{asset('productImage/' . $product->image) }}" alt="..." />
                         <!-- Product details-->
@@ -40,14 +45,23 @@
                                 ₹{{$product->price}}
                             </div>
                         </div>
-                        <!-- Product actions-->
-                        <div class="card-footer p-4 pt-0 border-top-0 bg-transparent">
-                            <div class="text-center"><a class="btn btn-outline-dark mt-auto" onclick="addCart({{ $product->id }})">Add Cart</a>
+
+                            <!-- Product actions-->
+                            <div class="card-footer p-4 pt-0 border-top-0 bg-transparent">
+                                @if(empty($cartCount) || !in_array($product->id,$cartCount))
+                                <div class="text-center" >
+                                    <a class="btn btn-outline-dark mt-auto" id="add_button{{$product->id}}" onclick="addCart({{ $product->id }})">Add to Cart </a>
+                                </div>
+                                @else
+                                <div class="text-center" >
+                                    <a class="btn btn-outline-dark mt-auto" id="remove_button{{$product->id}}" onclick="removeCart({{ $product->id }})">Remove to cart </a>
+                                </div>
+                                @endif
                             </div>
+
                         </div>
                     </div>
-                </div>
-                @endforeach
+                    @endforeach
                 {!! $products ->links() !!}
             </div>
         </div>
@@ -201,7 +215,25 @@
 
                 },
                 success: function(data) {
+                    $('#add_button'+prod_id).parent().html(data.removeButton);
                     $('#countCart').html(data.count);
+
+                }
+
+            });
+        }
+
+        function removeCart(prod_id){
+            $.ajax({
+                type: "GET",
+                url: "{{ route('removeCart') }}",
+                data: {
+                    "prod_id": prod_id,
+
+                },
+                success: function(data) {
+                    $('#remove_button'+prod_id).parent().html(data.addButton);
+                    console.log(data.message);
 
                 }
 

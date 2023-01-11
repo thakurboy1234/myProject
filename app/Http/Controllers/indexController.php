@@ -13,17 +13,19 @@ class indexController extends Controller
     public function index()
     {
         $products = Product::paginate(4);
-
+        $user_id = Auth::user()->id;
         // dd(11);
         if(Auth::check()){
-            $user_id = Auth::user()->id;
+
             $blogs = Blog::where('user_id','!=',$user_id)->with('like')->with('comment')->with('User')->get();
-            $cartCount = Cart::select('prod_id')->where('user_id',$user_id)->get()->toArray();
+            // echo gettype($cartCount);die;
         }else{
 
             $blogs = Blog::with('like')->with('comment')->with('User')->get();
         }
         // dd($blogs);
+        $cartCount = Cart::where('user_id',$user_id)->pluck('prod_id')->toArray();
+        // dd($cartCount);
 
         return view('user_index', compact('blogs','products','cartCount'));
     }

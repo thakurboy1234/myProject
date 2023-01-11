@@ -62,6 +62,7 @@ Route::controller(blogComtroller::class)->group(function(){
 });
 
 Route::POST('/add_cart',[CartController::class , 'addCart'])->name('addCart');
+Route::get('/remove_cart',[CartController::class , 'removeCart'])->name('removeCart');
 
 
 
@@ -88,6 +89,7 @@ Route::prefix('admin')->name('admin.')->group(function () {
             Route::put('/update_product','update')->name('product.update');
             Route::get('/delete_product','delete')->name('product.delete');
             Route::get('/datatable','table')->name('table');
+            Route::get('/prod-data','getData')->name('users-data');
         });
 
     });
