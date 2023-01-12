@@ -89,14 +89,13 @@ class productController extends Controller
                 ->addColumn('image', function ($data) {
                     return ' '.asset('productImage/'.$data->image).' ';
                 })
-                ->addColumn('action', function($row){
-                    $btn = '<a href="javascript:void(0)" class="btn btn-primary btn-sm">View</a>';
-                    return $btn;
+                ->addColumn('action', function($data){
+                    return view('admin.product.delete_modal',compact('data'));
                 })
                 ->rawColumns(['action'])
                 ->make(true);
         }
 
-        return view('users');
+        // return view('users');
     }
 }

@@ -3,7 +3,7 @@
 <div class="card mb-4">
     <div class="card-header">
         <i class="fas fa-table me-1"></i>
-        DataTable Example
+        Products
     </div>
     <div class="card-body">
         <table id="datatablesSimple">
@@ -16,25 +16,26 @@
                     <th>Action</th>
                 </tr>
             </thead>
-
-            <tbody>
-
-            </tbody>
         </table>
     </div>
 </div>
+
+
 @endsection
 @section('script')
     <script>
         $(document).ready(function(){
             $('#datatablesSimple').dataTable({
-                processing: true,
-                serverSide: true,
-
+                dom: 'Bfrtip',
+                buttons: [
+                    'copy', 'csv', 'excel', 'pdf', 'print'
+                ],
                 ajax:{
-                    url:"{{ route('admin.users-data') }}",
+                url:"{{ route('admin.users-data') }}",
 
                 },
+                processing: true,
+                serverSide: true,
                 columns: [
                     { data: 'id' },
                     { data: 'name' },
@@ -44,8 +45,30 @@
                         }
                     },
                     {data: 'action', orderable: false, searchable: false},
-                ]
+                ],
+
             });
         });
+    </script>
+    <script>
+        function productDelete(id) {
+            console.log(id);
+
+            $.ajax({
+                type: "DELETE",
+                url: "{{ route('admin.product.delete') }}",
+                data: {
+                    "_token": "{{ csrf_token() }}",
+                    "id": id,
+                },
+                success: function(data) {
+                    $('.btn-close').click();
+                    alert(data.messege)
+
+
+                }
+
+            });
+        }
     </script>
 @endsection
