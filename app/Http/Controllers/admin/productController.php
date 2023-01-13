@@ -84,7 +84,16 @@ class productController extends Controller
     public function getData(Request $request){
 
         if ($request->ajax()) {
+            $startPrice = $request->get('from');
+            $endPrice = $request->get('to');
             $data = Product::orderBy('id','desc');
+
+            if($startPrice && $endPrice) {
+                $data->where('price', '>=', $startPrice)
+                ->where('price', '<=', $endPrice);
+                $data = $data->get();
+            }
+
             return Datatables::of($data)->addIndexColumn()
                 ->addColumn('image', function ($data) {
                     return ' '.asset('productImage/'.$data->image).' ';
